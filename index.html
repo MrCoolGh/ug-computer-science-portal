@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University of Ghana - Computer Science Portal</title>
+    <title>University of Ghana - Information Technology Portal</title>
 
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,34 +68,24 @@
 
         <nav class="nav-links" id="navLinks">
 
-            <!-- Exam Venues dropdown -->
+            <!-- Exam Venues -->
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-trigger">Exam Venues </a>
+                <a href="#examVenueSection" class="nav-dropdown-trigger" data-section="examVenueSection">Exam Venues</a>
             </div>
 
-            <!-- Study Materials dropdown -->
+            <!-- Study Materials -->
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-trigger">Study Materials </a>
+                <a href="#studyMaterialsSection" class="nav-dropdown-trigger" data-section="studyMaterialsSection">Study Materials</a>
             </div>
 
-            <!-- Exam TimeTable dropdown -->
+            <!-- Exam TimeTable -->
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-trigger">Exam TimeTable
-                    <span class="arrow">&#9662;</span></a>
-                <div class="nav-dropdown-menu">
-                    <a href="#" data-timetable="provisional">Provisional TimeTable</a>
-                    <a href="#" data-timetable="final">Final TimeTable</a>
-                </div>
+                <a href="#examTimetableSection" class="nav-dropdown-trigger" data-section="examTimetableSection">Exam TimeTable</a>
             </div>
 
-            <!-- Course Schedule dropdown -->
+            <!-- Course Schedule -->
             <div class="nav-dropdown">
-                <a href="#" class="nav-dropdown-trigger">Course Schedule <span class="arrow">
-                    &#9662;</span></a>
-                <div class="nav-dropdown-menu">
-                    <a href="#">TimeTable</a>
-                    <a href="#">Meeting Links</a>
-                </div>
+                <a href="#" class="nav-dropdown-trigger" data-section="courseScheduleSection">Course Schedule</a>
             </div>
 
         </nav>
@@ -115,7 +105,9 @@
         <!-- Introduction Section -->
         <section class="introduction-section">
             <h1>Welcome to UG Computer Science Portal</h1>
-            <p>This portal is designed for <strong>University of Ghana Computer Science students</strong> enrolled in the Distance Education programme. Here you can access all essential information you need:</p>
+            <p>This portal is designed for <strong>University of Ghana Information Technology
+                Students</strong> enrolled in the Distance Education programme. Here you can
+                access all essential information you need:</p>
 
             <div class="features-list">
                 <div class="feature-item">
@@ -178,20 +170,6 @@
             </div>
         </section>
 
-        <!-- Study Materials Section -->
-        <section class="collapsible-section" id="studyMaterialsSection">
-            <div class="section-header" id="studyMaterialsHeader">
-                <span class="collapse-icon">▼</span>
-                <h2>Study Materials</h2>
-            </div>
-
-            <div class="section-content" id="studyMaterialsContent">
-                <div class="study-materials-container" id="studyMaterialsContainer">
-                    <!-- Levels will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
         <!-- Exam TimeTable Section -->
         <section class="collapsible-section" id="examTimetableSection">
             <div class="section-header" id="examTimetableHeader">
@@ -207,6 +185,7 @@
                             <label for="academicYearSelect">Academic Year:</label>
                             <select id="academicYearSelect" class="selector-input">
                                 <option value="2025/2026">2025/2026</option>
+                                <option value="2026/2027">2026/2027</option>
                             </select>
                         </div>
 
@@ -294,6 +273,20 @@
                 </div>
             </div>
         </section>
+
+        <!-- Study Materials Section -->
+        <section class="collapsible-section" id="studyMaterialsSection">
+            <div class="section-header" id="studyMaterialsHeader">
+                <span class="collapse-icon">▼</span>
+                <h2>Study Materials</h2>
+            </div>
+
+            <div class="section-content" id="studyMaterialsContent">
+                <div class="study-materials-container" id="studyMaterialsContainer">
+                    <!-- Levels will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 
@@ -360,7 +353,12 @@
                 </div>
                 <div class="info-row">
                     <span class="info-label">Venue:</span>
-                    <span class="info-value" id="successVenue">-</span>
+                    <span class="info-value">
+                        <a href="#" id="successVenueLink" target="_blank" style="color: #153d6f; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                            <span id="successVenue">-</span>
+                            <span style="font-size: 1.2rem;">📍</span>
+                        </a>
+                    </span>
                 </div>
             </div>
 
