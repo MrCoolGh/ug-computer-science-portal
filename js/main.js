@@ -83,6 +83,13 @@ function formatDate(dateStr) {
     return `${dayName}, ${monthName} ${day}${getOrdinalSuffix(day)}`;
 }
 
+function formatDateMobileOnly(dateStr) {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const monthName = months[month - 1];
+    return `${monthName} ${day}${getOrdinalSuffix(day)}`;
+}
+
 function getOrdinalSuffix(num) {
     const j = num % 10,
         k = num % 100;
@@ -109,6 +116,23 @@ function formatTime(timeStr) {
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
     return `${displayHour}:${min.toString().padStart(2, '0')}${ampm}`;
+}
+
+function formatTimeMobileOnly(timeStr) {
+    // Handle both "07:30-09:00" and "7:30AM" formats
+    if (timeStr.includes(':') && !timeStr.includes('AM') && !timeStr.includes('PM')) {
+        // It's in 24-hour format like "07:30-09:00", extract start time
+        timeStr = timeStr.split('-')[0].trim();
+    }
+
+    // For mobile, just return the time without AM/PM in simple format like 7:30
+    const parts = timeStr.split(':');
+    let hour = parseInt(parts[0]);
+    const min = parseInt(parts[1]);
+
+    // Convert to 12-hour format but without AM/PM
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${min.toString().padStart(2, '0')}`;
 }
 
 function showSuccessModal(studentName, studentId, courseCode, courseName, examMode, examDate, examTime, venue) {
@@ -139,6 +163,11 @@ function showSuccessModal(studentName, studentId, courseCode, courseName, examMo
 
     document.getElementById('successVenue').textContent = venue;
 
+    // Create Google Maps link for the venue
+    const googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(venue)}+Ghana`;
+    const venueLink = document.getElementById('successVenueLink');
+    venueLink.href = googleMapsUrl;
+
     successModalOverlay.classList.add('active');
     successModal.classList.add('active');
 }
@@ -165,15 +194,36 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Hamburger Menu Toggle
-hamburger.addEventListener('click', function() {
+// ============ HAMBURGER MENU TOGGLE ============
+hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    hamburger.classList.toggle('active');
     navLinks.classList.toggle('active');
     menuOverlay.classList.toggle('active');
 });
 
 menuOverlay.addEventListener('click', function() {
+    hamburger.classList.remove('active');
     navLinks.classList.remove('active');
     menuOverlay.classList.remove('active');
+});
+
+// ============ CLOSE NAV ON NAV ITEM CLICK ============
+const navItems = document.querySelectorAll('.nav-links a, .nav-dropdown-trigger');
+navItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Close the menu after clicking a nav item (but not on dropdowns)
+        const isDropdownTrigger = item.classList.contains('nav-dropdown-trigger');
+
+        if (!isDropdownTrigger || window.innerWidth <= 768) {
+            // Delay closing to allow navigation
+            setTimeout(() => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            }, 100);
+        }
+    });
 });
 
 // Top Nav Dropdowns
@@ -225,6 +275,7 @@ submenuItems.forEach(item => {
         if (window.innerWidth <= 768) {
             e.stopPropagation();
         }
+        hamburger.classList.remove('active');
         navLinks.classList.remove('active');
         menuOverlay.classList.remove('active');
         navDropdowns.forEach(dropdown => {
@@ -236,6 +287,7 @@ submenuItems.forEach(item => {
 const nonDropdownLinks = document.querySelectorAll('.nav-links > a');
 nonDropdownLinks.forEach(link => {
     link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
         navLinks.classList.remove('active');
         menuOverlay.classList.remove('active');
     });
@@ -277,9 +329,13 @@ function scrollToSection(sectionId) {
 const examVenuesNavLink = document.querySelector('.nav-links .nav-dropdown:first-child .nav-dropdown-trigger');
 if (examVenuesNavLink) {
     examVenuesNavLink.addEventListener('click', function(e) {
-        if (window.innerWidth > 768) {
-            e.preventDefault();
-            scrollToSection('examVenueSection');
+        e.preventDefault();
+        scrollToSection('examVenueSection');
+        // Close menu on mobile
+        if (window.innerWidth <= 768) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            menuOverlay.classList.remove('active');
         }
     });
 }
@@ -288,9 +344,13 @@ if (examVenuesNavLink) {
 const studyMaterialsNavLink = document.querySelector('.nav-links .nav-dropdown:nth-child(2) .nav-dropdown-trigger');
 if (studyMaterialsNavLink) {
     studyMaterialsNavLink.addEventListener('click', function(e) {
-        if (window.innerWidth > 768) {
-            e.preventDefault();
-            scrollToSection('studyMaterialsSection');
+        e.preventDefault();
+        scrollToSection('studyMaterialsSection');
+        // Close menu on mobile
+        if (window.innerWidth <= 768) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            menuOverlay.classList.remove('active');
         }
     });
 }
@@ -299,17 +359,21 @@ if (studyMaterialsNavLink) {
 const timetableNavLinks = document.querySelectorAll('.nav-dropdown-menu a[data-timetable]');
 timetableNavLinks.forEach(link => {
     link.addEventListener('click', function(e) {
-        if (window.innerWidth > 768) {
-            e.preventDefault();
-            scrollToSection('examTimetableSection');
-            const timetableType = this.getAttribute('data-timetable');
-            setTimeout(() => {
-                const tabBtn = document.querySelector(`.timetable-tab-btn[data-type="${timetableType}"]`);
-                if (tabBtn) {
-                    tabBtn.click();
-                }
-            }, 500);
+        e.preventDefault();
+        scrollToSection('examTimetableSection');
+        const timetableType = this.getAttribute('data-timetable');
+        // Close menu on mobile
+        if (window.innerWidth <= 768) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            menuOverlay.classList.remove('active');
         }
+        setTimeout(() => {
+            const tabBtn = document.querySelector(`.timetable-tab-btn[data-type="${timetableType}"]`);
+            if (tabBtn) {
+                tabBtn.click();
+            }
+        }, 500);
     });
 });
 
@@ -396,9 +460,15 @@ function updateTimetableDisplay(academicYear, semester) {
         timetableData.provisional.forEach(entry => {
             const row = document.createElement('tr');
             row.className = 'timetable-row';
+
+            // Format date and time based on screen size
+            const isMobile = window.innerWidth <= 480;
+            const dateDisplay = isMobile ? formatDateMobileOnly(entry.date) : formatDate(entry.date);
+            const timeDisplay = isMobile ? formatTimeMobileOnly(entry.time) : entry.time;
+
             row.innerHTML = `
-                <td class="timetable-cell date-cell">${formatDate(entry.date)}</td>
-                <td class="timetable-cell time-cell">${entry.time}</td>
+                <td class="timetable-cell date-cell">${dateDisplay}</td>
+                <td class="timetable-cell time-cell">${timeDisplay}</td>
                 <td class="timetable-cell code-cell desktop-only">${entry.courseCode}</td>
                 <td class="timetable-cell name-cell" data-course-code="${entry.courseCode}">${entry.courseName}</td>
                 <td class="timetable-cell mode-cell">${entry.mode}</td>
@@ -424,9 +494,15 @@ function updateTimetableDisplay(academicYear, semester) {
         timetableData.final.forEach(entry => {
             const row = document.createElement('tr');
             row.className = 'timetable-row';
+
+            // Format date and time based on screen size
+            const isMobile = window.innerWidth <= 480;
+            const dateDisplay = isMobile ? formatDateMobileOnly(entry.date) : formatDate(entry.date);
+            const timeDisplay = isMobile ? formatTimeMobileOnly(entry.time) : entry.time;
+
             row.innerHTML = `
-                <td class="timetable-cell date-cell">${formatDate(entry.date)}</td>
-                <td class="timetable-cell time-cell">${entry.time}</td>
+                <td class="timetable-cell date-cell">${dateDisplay}</td>
+                <td class="timetable-cell time-cell">${timeDisplay}</td>
                 <td class="timetable-cell code-cell desktop-only">${entry.courseCode}</td>
                 <td class="timetable-cell name-cell" data-course-code="${entry.courseCode}">${entry.courseName}</td>
                 <td class="timetable-cell mode-cell">${entry.mode}</td>
@@ -580,9 +656,14 @@ studentIdInput.addEventListener('input', function() {
     this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);
 });
 
+// Remove spaces from course code input
+courseCodeInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\s+/g, '').toUpperCase();
+});
+
 searchBtn.addEventListener('click', function() {
     const studentId = studentIdInput.value.trim();
-    const courseCode = courseCodeInput.value.trim().toUpperCase();
+    const courseCode = courseCodeInput.value.trim().toUpperCase().replace(/\s+/g, '');
 
     if (!studentId || studentId.length !== 8) {
         showErrorModal('❌ Invalid Student ID', 'Student ID must be exactly 8 digits. Please check and try again.');
