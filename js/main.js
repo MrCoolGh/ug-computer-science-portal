@@ -125,14 +125,15 @@ function formatTimeMobileOnly(timeStr) {
         timeStr = timeStr.split('-')[0].trim();
     }
 
-    // For mobile, just return the time without AM/PM in simple format like 7:30
+    // For mobile, return the time with AM/PM in simple format like 7:30AM
     const parts = timeStr.split(':');
     let hour = parseInt(parts[0]);
     const min = parseInt(parts[1]);
-
-    // Convert to 12-hour format but without AM/PM
+    
+    // Convert to 12-hour format with AM/PM
+    const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
-    return `${displayHour}:${min.toString().padStart(2, '0')}`;
+    return `${displayHour}:${min.toString().padStart(2, '0')}${ampm}`;
 }
 
 function showSuccessModal(studentName, studentId, courseCode, courseName, examMode, examDate, examTime, venue) {
@@ -162,7 +163,7 @@ function showSuccessModal(studentName, studentId, courseCode, courseName, examMo
     document.getElementById('successExamTime').textContent = formattedTime;
 
     document.getElementById('successVenue').textContent = venue;
-
+    
     // Create Google Maps link for the venue
     const googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(venue)}+Ghana`;
     const venueLink = document.getElementById('successVenueLink');
