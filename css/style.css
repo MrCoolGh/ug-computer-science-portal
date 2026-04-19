@@ -306,6 +306,7 @@ a {
 
 /* ====== EXPAND ALL BUTTON ====== */
 .expand-all-container {
+  display: none;
   margin-bottom: 30px;
 }
 
@@ -402,6 +403,22 @@ a {
   overflow: hidden;
 }
 
+/* Specific styling for Exam Venue and Timetable sections - NOT collapsible */
+#examVenueSection .section-header,
+#examTimetableSection .section-header {
+  cursor: default;
+}
+
+#examVenueSection .section-header:hover,
+#examTimetableSection .section-header:hover {
+  background-color: #1b3a5c;
+}
+
+#examVenueSection .collapse-icon,
+#examTimetableSection .collapse-icon {
+  display: none;
+}
+
 .section-header {
   background-color: #1b3a5c;
   color: #ffffff;
@@ -444,7 +461,7 @@ a {
   transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
-.section-content.collapsed {
+#studyMaterialsContent.section-content.collapsed {
   max-height: 0;
   padding: 0 30px;
   overflow: hidden;
@@ -1091,7 +1108,7 @@ a {
 
 .course-name {
   color: #555555;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.4;
 }
 
@@ -1284,6 +1301,8 @@ a {
 
 .name-cell {
   min-width: 250px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .mode-cell {
@@ -1535,7 +1554,7 @@ a {
     padding: 20px;
   }
 
-  .section-content.collapsed {
+  #studyMaterialsContent.section-content.collapsed {
     padding: 0 20px;
   }
 
@@ -1647,6 +1666,14 @@ a {
   .timetable-tab-btn {
     padding: 10px 15px;
     font-size: 0.85rem;
+  }
+
+  .time-cell {
+    font-size: 0.75rem;
+  }
+
+  .name-cell {
+    font-size: 0.95rem;
   }
 }
 
@@ -1761,7 +1788,7 @@ a {
     padding: 15px;
   }
 
-  .section-content.collapsed {
+  #studyMaterialsContent.section-content.collapsed {
     padding: 0 15px;
   }
 
@@ -2005,11 +2032,18 @@ a {
     padding: 8px 6px;
   }
 
-  /* SHOW COURSE CODE ABOVE COURSE NAME ON MOBILE */
+  .time-cell {
+    font-size: 0.65rem;
+    color: #28a745;
+    font-weight: 600;
+  }
+
   .name-cell {
     display: flex;
     flex-direction: column;
     min-width: auto;
+    font-size: 0.95rem;
+    font-weight: 700;
   }
 
   .name-cell::before {
@@ -2017,9 +2051,15 @@ a {
     display: block;
     font-weight: 700;
     color: #1b3a5c;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     margin-bottom: 4px;
     letter-spacing: 0.5px;
+  }
+
+  .date-cell {
+    font-weight: 600;
+    color: #1b3a5c;
+    font-size: 0.8rem;
   }
 
   .timetable-not-available {
@@ -2178,3 +2218,25 @@ a {
   max-height: 1000px !important;
 }
 
+/* ============ VENUE LINK STYLING ============ */
+#successVenueLink {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+#successVenueLink:hover {
+  background-color: rgba(21, 61, 111, 0.1);
+  text-decoration: underline;
+}
+
+#successVenueLink:hover span:last-child {
+  transform: scale(1.2);
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1.2); }
+  50% { transform: scale(1.4); }
+}
