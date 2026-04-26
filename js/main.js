@@ -129,7 +129,7 @@ function formatTimeMobileOnly(timeStr) {
     const parts = timeStr.split(':');
     let hour = parseInt(parts[0]);
     const min = parseInt(parts[1]);
-    
+
     // Convert to 12-hour format with AM/PM
     const ampm = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
@@ -163,7 +163,7 @@ function showSuccessModal(studentName, studentId, courseCode, courseName, examMo
     document.getElementById('successExamTime').textContent = formattedTime;
 
     document.getElementById('successVenue').textContent = venue;
-    
+
     // Create Google Maps link for the venue
     const googleMapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(venue)}+Ghana`;
     const venueLink = document.getElementById('successVenueLink');
