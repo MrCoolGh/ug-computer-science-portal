@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Ghana - Information Technology Portal</title>
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="top-bar">
+    <div class="top-bar-container">
+        <nav class="top-links" id="topLinks">
+
+            <!-- Student dropdown -->
+            <div class="dropdown">
+                <a href="#" class="dropdown-trigger">Student</a>
+                <div class="dropdown-menu">
+                    <a href="#">STS Portal</a>
+                    <a href="#">Library</a>
+                    <a href="#">Sakai</a>
+                    <a href="#">Student Email</a>
+                    <a href="#">Academic Support and Services</a>
+                </div>
+            </div>
+
+            <a href="#">Alumni</a>
+
+            <!-- Faculty & Staff dropdown -->
+            <div class="dropdown">
+                <a href="#" class="dropdown-trigger">Faculty &amp; Staff</a>
+                <div class="dropdown-menu">
+                    <a href="#">Staff Email</a>
+                    <a href="#">STS Portal</a>
+                    <a href="#">HRODD</a>
+                </div>
+            </div>
+
+            <a href="#">MIS Web</a>
+        </nav>
+
+    </div>
+</div>
+
+<!-- ============ MAIN NAV BAR ============ -->
+<header class="main-nav">
+    <div class="main-nav-container">
+        <a href="#" class="logo">
+            <img src="./img/img.png" alt="University of Ghana Logo">
+        </a>
+
+        <!-- Hamburger Menu Toggle -->
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <nav class="nav-links" id="navLinks">
+
+            <!-- Exam Venues -->
+            <div class="nav-dropdown">
+                <a href="#examVenueSection" class="nav-dropdown-trigger" data-section="examVenueSection">Exam Venues</a>
+            </div>
+
+            <!-- Study Materials -->
+            <div class="nav-dropdown">
+                <a href="#studyMaterialsSection" class="nav-dropdown-trigger" data-section="studyMaterialsSection">Study Materials</a>
+            </div>
+
+            <!-- Exam TimeTable -->
+            <div class="nav-dropdown">
+                <a href="#examTimetableSection" class="nav-dropdown-trigger" data-section="examTimetableSection">Exam TimeTable</a>
+            </div>
+
+            <!-- Course Schedule -->
+            <div class="nav-dropdown">
+                <a href="#" class="nav-dropdown-trigger" data-section="courseScheduleSection">Course Schedule</a>
+            </div>
+
+        </nav>
+    </div>
+</header>
+
+<!-- ============ MAIN CONTENT ============ -->
+<main class="main-content">
+    <div class="content-wrapper">
+        <!-- Expand All Button -->
+        <div class="expand-all-container">
+            <button class="expand-all-btn" id="expandAllBtn">
+                <span class="expand-icon">▼</span> Expand All
+            </button>
+        </div>
+
+        <!-- Introduction Section -->
+        <section class="introduction-section">
+            <h1>Welcome to UG Computer Science Portal</h1>
+            <p>This portal is designed for <strong>University of Ghana Information Technology
+                Students</strong> enrolled in the Distance Education programme. Here you can
+                access all essential information you need:</p>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <strong>Programme Timetable:</strong> View detailed class schedules for your courses
+                </div>
+                <div class="feature-item">
+                    <strong>Exam Venue Checker:</strong> Find your assigned examination venue and details
+                </div>
+                <div class="feature-item">
+                    <strong>Learning Resources:</strong> Access course materials and study guides
+                </div>
+                <div class="feature-item">
+                    <strong>Exam Timetable:</strong> Check your examination schedule and dates
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="important-notice">
+                <h3>⚠️ Important Notice</h3>
+                <p>The Exam Venue Checker is exclusively available for students studying at the Accra Learning Centre and main campus. Students at other learning centres should contact their respective centre coordinators for venue information.</p>
+            </div>
+        </section>
+
+        <!-- Exam Venue Section -->
+        <section class="collapsible-section" id="examVenueSection">
+            <div class="section-header" id="examVenueHeader">
+                <span class="collapse-icon">▼</span>
+                <h2>Check Your Exam Venue</h2>
+            </div>
+
+            <div class="section-content" id="examVenueContent">
+                <div class="search-container">
+                    <h3>Search for Your Exam Venue</h3>
+                    <p class="search-description">Enter your 8-digit student ID and course code to find your exam venue and timetable</p>
+
+                    <div class="search-form" id="searchFormContainer">
+                        <div class="form-group">
+                            <label for="studentId">Student ID (8 digits)</label>
+                            <input
+                                    type="text"
+                                    id="studentId"
+                                    placeholder="e.g., 22429593"
+                                    maxlength="8"
+                                    pattern="[0-9]"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseCode">Course Code</label>
+                            <input
+                                    type="text"
+                                    id="courseCode"
+                                    placeholder="e.g., DCIT301"
+                            >
+                        </div>
+
+                        <button class="search-btn" id="searchBtn">Search Venue</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exam TimeTable Section -->
+        <section class="collapsible-section" id="examTimetableSection">
+            <div class="section-header" id="examTimetableHeader">
+                <span class="collapse-icon">▼</span>
+                <h2>Exam TimeTable</h2>
+            </div>
+
+            <div class="section-content" id="examTimetableContent">
+                <div class="timetable-container">
+                    <!-- Academic Year & Semester Selection -->
+                    <div class="timetable-selector">
+                        <div class="selector-group">
+                            <label for="academicYearSelect">Academic Year:</label>
+                            <select id="academicYearSelect" class="selector-input">
+                                <option value="2025/2026">2025/2026</option>
+                                <option value="2026/2027">2026/2027</option>
+                            </select>
+                        </div>
+
+                        <div class="selector-group">
+                            <label for="semesterSelect">Semester:</label>
+                            <select id="semesterSelect" class="selector-input">
+                                <option value="1">First Semester</option>
+                                <option value="2">Second Semester</option>
+                            </select>
+                        </div>
+
+                        <button class="selector-btn" id="loadTimetableBtn">Load TimeTable</button>
+                    </div>
+
+                    <!-- Academic Year & Semester Display -->
+                    <div class="timetable-header-info" id="timetableHeaderInfo">
+                        <h3 id="timetableTitle">2025/2026 - First Semester</h3>
+                    </div>
+
+                    <!-- Timetable tabs -->
+                    <div class="timetable-tabs" id="timetableTabsContainer">
+                        <button class="timetable-tab-btn active" data-type="provisional">
+                            📋 Provisional TimeTable
+                        </button>
+                        <button class="timetable-tab-btn" data-type="final">
+                            ✓ Final TimeTable
+                        </button>
+                    </div>
+
+                    <!-- Provisional TimeTable -->
+                    <div class="timetable-content" id="provisionalContent">
+                        <div class="timetable-notice">
+                            <div class="notice-icon">⚠️</div>
+                            <div class="notice-text">
+                                <p class="notice-title">This is a Provisional TimeTable</p>
+                                <p class="notice-message">This timetable is subject to change. Please do NOT base your final plans on this schedule. Use this for preparation purposes only. A final timetable will be released soon.</p>
+                            </div>
+                        </div>
+
+                        <div class="timetable-table-wrapper">
+                            <table class="timetable-table">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th class="desktop-only">Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Mode</th>
+                                </tr>
+                                </thead>
+                                <tbody id="provisionalTableBody">
+                                <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Final TimeTable -->
+                    <div class="timetable-content" id="finalContent" style="display: none;">
+                        <div class="timetable-not-available" id="finalNotAvailableMsg">
+                            <div class="not-available-icon">📅</div>
+                            <div class="not-available-text">
+                                <p class="not-available-title">Final TimeTable Not Available</p>
+                                <p class="not-available-message">The final examination timetable for the 2025/2026 first semester has not been released yet. Please check back soon for updates.</p>
+                            </div>
+                        </div>
+
+                        <div class="timetable-table-wrapper" id="finalTableWrapper" style="display: none;">
+                            <table class="timetable-table">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th class="desktop-only">Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Mode</th>
+                                </tr>
+                                </thead>
+                                <tbody id="finalTableBody">
+                                <!-- Will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Study Materials Section -->
+        <section class="collapsible-section" id="studyMaterialsSection">
+            <div class="section-header" id="studyMaterialsHeader">
+                <span class="collapse-icon">▼</span>
+                <h2>Study Materials</h2>
+            </div>
+
+            <div class="section-content" id="studyMaterialsContent">
+                <div class="study-materials-container" id="studyMaterialsContainer">
+                    <!-- Levels will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- ============ ERROR POPUP MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="error-modal" id="errorModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">⚠️ Error</h2>
+            <button class="modal-close" id="modalCloseBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="modalMessage">An error occurred. Please try again.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" id="modalOkBtn">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============ SUCCESS POPUP MODAL ============ -->
+<div class="modal-overlay" id="successModalOverlay"></div>
+<div class="success-modal" id="successModal">
+    <div class="success-header" id="successHeaderBar"></div>
+
+    <div class="success-wrapper">
+        <div class="success-content">
+            
+            <!-- Student Welcome -->
+            <div class="welcome-section">
+                <h2 id="successStudentName">-</h2>
+                <p id="successStudentId">-</p>
+            </div>
+
+            <!-- Status Badge -->
+            <div class="status-section" id="statusSection">
+                <div class="status-badge" id="statusBadge"></div>
+            </div>
+
+            <!-- Course Information -->
+            <div class="course-section">
+                <div class="info-row">
+                    <span class="info-label">Course Code:</span>
+                    <span class="info-value" id="successCourseCode">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Course Name:</span>
+                    <span class="info-value" id="successCourseName">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Mode:</span>
+                    <span class="info-value" id="successExamMode">-</span>
+                </div>
+            </div>
+
+            <!-- Exam Details Section (Combined) -->
+            <div class="exam-details-section">
+                <div class="info-row">
+                    <span class="info-label">Exam Date:</span>
+                    <span class="info-value" id="successExamDate">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Exam Time:</span>
+                    <span class="info-value" id="successExamTime">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Venue:</span>
+                    <span class="info-value">
+                        <a href="#" id="successVenueLink" target="_blank" style="color: #153d6f; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                            <span id="successVenue">-</span>
+                            <span style="font-size: 1.2rem;">📍</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Note Section -->
+            <div class="note-section">
+                <div class="note-icon">⚠️</div>
+                <div class="note-content">
+                    <p class="note-title">Note:</p>
+                    <p class="note-text">Exam venue is for Accra Learning Centre only.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-footer">
+            <button class="close-success-btn" id="successCloseBtn">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Overlay for Top Nav Dropdowns -->
+<div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+<!-- Load Student Data -->
+<script src="./js/student-data.js"></script>
+
+<!-- Load Study Materials Data -->
+<script src="./js/study-materials.js"></script>
+
+<!-- Load Exam Timetable Data -->
+<script src="./js/exam-timetable.js"></script>
+
+<!-- JavaScript for Hamburger Menu & Collapsible Sections -->
+<script src="./js/main.js"></script>
+
+</body>
+</html>
